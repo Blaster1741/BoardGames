@@ -7,6 +7,18 @@ $(document).ready(function () {
     return;
   }
 
+  // Initialize and loop background music
+  const bgMusic = new Audio("./static/music.mp3");
+  bgMusic.loop = true;
+  bgMusic.volume = 0.4; // Adjust volume from 0.0 to 1.0
+
+  // Start music on first user interaction to satisfy browser autoplay policies
+  const startAudio = () => {
+    bgMusic.play().catch((err) => console.log("Audio playback deferred:", err));
+    document.removeEventListener("click", startAudio);
+  };
+  document.addEventListener("click", startAudio);
+
   let juego = new Juego();
 
   let border = "0em 0em 0em 0.5em #ffffff95";
